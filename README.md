@@ -1,16 +1,24 @@
 # AppBeat.DnsUtil (Terraform your Cloudflare DNS with healthy IPs)
 
-This Docker image tries to ensure that your [Cloudflare](https://www.cloudflare.com/) domain always has DNS records with healthy destination IPs.
+This Docker image tries to ensure that your [Cloudflare](https://www.cloudflare.com/) domain has DNS records with healthy destination IPs. It checks this periodically.
 
-This is done by .NET 6 worker service which periodically checks your destinations, prepares Terraform file accordingly and applies changes with Cloudflare plugin.
+# How it works?
 
-Have questions? [Contact us](https://www.appbeat.io/contact) or [report issue on GitHub](https://github.com/AppBeat/AppBeat.DnsUtil/issues).
+.NET 6 worker service periodically checks your destinations, prepares Terraform file with healthy IP addresses and applies changes with Terraform Cloudflare plugin. All source code is available on [GitHub](https://github.com/AppBeat/AppBeat.DnsUtil/tree/master/AppBeat.DnsUtil.HealthyDns).
 
-> :warning: **Use at your own risk**: This is early version of tool. Ideally use it initially with test domains. Please report any issues here.
+# Have questions or suggestions?
 
-All configuration is provided via environment variables and for this reason it is easier to use with docker-compose files.
+Please [contact us](https://www.appbeat.io/contact) or [report issue on GitHub](https://github.com/AppBeat/AppBeat.DnsUtil/issues).
 
-## docker-compose.yml example
+# Disclaimer
+
+This is early version of tool. **Use at your own risk!** Ideally, use it first with test domains to ensure that everything works as expected for you. Please report any issues here.
+
+# Examples
+
+## docker-compose.yml example for example.com, A records for test-subdomain pointing to YOUR_WEB_SERVER_IP_1 and YOUR_WEB_SERVER_IP_2
+
+All configuration is provided via environment variables. You must also provide Cloudflare API Token with Zone.DNS edit permission and Zone ID.
 
 ```
 version: "3.9"
@@ -19,9 +27,6 @@ services:
     image: appbeat/healthy-dns-util:latest
     container_name: appbeat-healthy-dns-util
     restart: "no" #should be checked if something goes wrong
-
-#    volumes:
-#      - /app/publish/linux-x64/:/app
 
     environment:
       - DnsUtil_RunAsService="true" #periodic or one time job
@@ -43,7 +48,7 @@ services:
       - DnsUtil_DNS[0]__ZoneId="YOUR_ZONE_ID" #Cloudlare specific DNS setting
 ```
 
-* [docker-compose.yml](AppBeat.DnsUtil.HealthyDns/docker-compose.yml)
+* [docker-compose.yml](https://github.com/AppBeat/AppBeat.DnsUtil/blob/master/AppBeat.DnsUtil.HealthyDns/docker-compose.yml)
 
 ## Dockerfile definition
-* [Dockerfile](AppBeat.DnsUtil.HealthyDns/Dockerfile)
+* [Dockerfile](https://github.com/AppBeat/AppBeat.DnsUtil/blob/master/AppBeat.DnsUtil.HealthyDns/Dockerfile)
