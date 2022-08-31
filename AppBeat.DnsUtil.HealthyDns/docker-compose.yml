@@ -1,7 +1,7 @@
 ﻿version: "3.9"
 services:
   healthy-dns-util:
-    image: appbeat.io/healthy-dns-util:latest
+    image: appbeat/healthy-dns-util:latest
     container_name: appbeat-healthy-dns-util
     restart: "no" #should be checked if something goes wrong
 

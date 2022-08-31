@@ -4,6 +4,8 @@ This Docker image tries to ensure that your [Cloudflare](https://www.cloudflare.
 
 This is done by .NET 6 service which periodically checks your destinations, prepares Terraform file accordingly and applies changes with Cloudflare plugin.
 
+Have questions? [Contact us](https://www.appbeat.io/contact) or [report issue on GitHub](https://github.com/AppBeat/AppBeat.DnsUtil/issues).
+
 > :warning: **Use at your own risk**: This is early version of tool. Ideally use it initially with test domains. Please report any issues here.
 
 All configuration is provided via environment variables and for this reason it is easier to use with docker-compose files.
